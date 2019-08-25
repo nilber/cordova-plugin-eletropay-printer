@@ -1,47 +1,33 @@
 {
   "name": "cordova-plugin-eletropay-printer",
-  "version": "2.0.4-dev",
-  "description": "Cordova Device Plugin",
-  "types": "./types/index.d.ts",
+  "version": "1.0.0",
+  "description": "Android Toast Plugin",
   "cordova": {
     "id": "cordova-plugin-eletropay-printer",
     "platforms": [
       "android"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-eletropay-printer"
-  },
-  "bugs": {
-    "url": "https://issues.apache.org/jira/browse/CB"
-  },
   "keywords": [
-    "cordova",
-    "device",
+    "android",
+    "toast",
     "ecosystem:cordova",
     "cordova-android"
   ],
-  "scripts": {
-    "test": "npm run eslint",
-    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
-  },
-  "author": "Apache Software Foundation",
-  "license": "Apache-2.0",
-  "engines": {
-    "cordovaDependencies": {
-      "3.0.0": {
-        "cordova": ">100"
-      }
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
     }
+  ],
+  "author": "Nikola Brežnjak <nikola.breznjak@gmail.com> (http://www.nikola-breznjak.com/blog)",
+  "license": "Apache 2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hitman666/cordova-plugin-eletropay-printer.git"
   },
-  "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-semistandard": "^11.0.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.3.0",
-    "eslint-plugin-node": "^5.0.0",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1"
-  }
+  "bugs": {
+    "url": "https://github.com/Hitman666/cordova-plugin-eletropay-printer/issues"
+  },
+  "homepage": "https://github.com/Hitman666/cordova-plugin-eletropay-printer#readme"
 }
