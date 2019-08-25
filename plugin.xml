@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="cordova-plugin-eletropay-printer" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>AndroidToast</name>
+    <name>EletroPayPrinterService</name>
 
     <description>Android Toast Plugin</description>
     <license>Apache 2.0</license>
@@ -10,23 +10,24 @@
       <engine name="cordova" version=">=3.0.0" />
     </engines>
 
-    <js-module name="AndroidToast" src="www/AndroidToast.js">
-        <clobbers target="AndroidToast" />
+    <js-module name="EletroPayPrinterService" src="www/EletroPayPrinterService.js">
+        <clobbers target="EletroPayPrinterService" />
     </js-module>
 
     <platform name="android">
         <config-file target="config.xml" parent="/*">
-            <feature name="AndroidToast">
-                <param name="android-package" value="com.eletropay.printer.AndroidToast" />
+            <feature name="EletroPayPrinterService">
+                <param name="android-package" value="com.eletropay.printer.EletroPayPrinterService" />
             </feature>
         </config-file>
 
-        <source-file src="src/android/AndroidToast.java" target-dir="src/com/eletropay/printer" />
+        <source-file src="src/android/EletroPayPrinterService.java" target-dir="src/com/eletropay/printer" />
         <source-file src="src/android/EletroPayPrinter.java" target-dir="src/com/eletropay/printer" />
         <source-file src="src/android/HandlerUtils.java" target-dir="src/com/eletropay/printer" />
         <source-file src="src/android/ThreadPoolManager.java" target-dir="src/com/eletropay/printer" />
+        <source-file src="src/android/PrinterCommand.java" target-dir="src/com/eletropay/printer" />
 
-        <!-- <source-file src="src/aidl/com/iposprinter/iposprinterservice/IPosPrinterCallback.aidl" target-dir="src/aidl/com/iposprinter/iposprinterservice" />
-        <source-file src="src/aidl/com/iposprinter/iposprinterservice/IPosPrinterService.aidl" target-dir="src/aidl/com/iposprinter/iposprinterservice" /> -->
+        <source-file src="src/aidl/com/iposprinter/iposprinterservice/IPosPrinterCallback.aidl" target-dir="../aidl/com/iposprinter/iposprinterservice" />
+        <source-file src="src/aidl/com/iposprinter/iposprinterservice/IPosPrinterService.aidl" target-dir="../aidl/com/iposprinter/iposprinterservice" />
     </platform>
 </plugin>

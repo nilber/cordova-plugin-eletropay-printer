@@ -12,14 +12,36 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
-
-public class AndroidToast extends CordovaPlugin {
+public class EletroPayPrinterService extends CordovaPlugin {
 
     EletroPayPrinter eletroPayPrinter;
     Handler handler;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+
+        if ("start".equals(action)) {
+            startPrinter(callbackContext);
+            return true;
+        }
+
+        if ("add_command".equals(action)) {
+
+            switch (args.getInt(2)){
+                case 0:
+                    eletroPayPrinter.AddCommand(new PrinterCommand(args.getString(0), args.getInt(1),0,args.getInt(3)));
+                    break;
+            }
+            callbackContext.success("start");
+            return true;
+        }
+
+
+        if ("printer".equals(action)) {
+            printer(callbackContext);
+            return true;
+        }
+
         if ("show".equals(action)) {
             show(args.getString(0), callbackContext);
             return true;
@@ -28,27 +50,31 @@ public class AndroidToast extends CordovaPlugin {
         return false;
     }
 
+    private void startPrinter(CallbackContext callbackContext){
+
+        eletroPayPrinter = new EletroPayPrinter(webView.getContext());
+        eletroPayPrinter.init();
+
+        callbackContext.success("start");
+    }
 
 
-    private void printer() {
+    private void printer(CallbackContext callbackContext) {
         handler = new Handler();
         handler.postDelayed(() -> {
 
             if (eletroPayPrinter.getPrinterStatus() == eletroPayPrinter.PRINTER_NORMAL) {
 
-                eletroPayPrinter.printQRCode("msg de teste aqui");
+                eletroPayPrinter.printer();
+                callbackContext.success("printer");
             } else {
-                printer();
+                printer(callbackContext);
             }
         }, 1000);
     }
 
     private void show(String msg, CallbackContext callbackContext) {
 
-        eletroPayPrinter = new EletroPayPrinter(webView.getContext());
-        eletroPayPrinter.init();
-
-        printer();
         if (msg == null || msg.length() == 0) {
             callbackContext.error("Empty message!");
         } else {

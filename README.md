@@ -17,8 +17,8 @@ In the code, you would show the toast message like this:
 ```
 constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
         platform.ready().then(() => {
-            var androidToast = new AndroidToast();
-            androidToast.show(
+            var EletroPayPrinterService = new EletroPayPrinterService();
+            EletroPayPrinterService.show(
                 'This is some nice toast popup!',
                 function(msg) {
                     console.log(msg);
@@ -32,7 +32,7 @@ constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen
     }
 ```
 
-If you're using the newest (currently 3) version of Ionic, then you would have to add this line: `declare var AndroidToast: any;` after the imports in `app.component.ts` (or any other file where you'll use the plugin) before actually using it. If you're using Ionic 1, you don't need to do this.
+If you're using the newest (currently 3) version of Ionic, then you would have to add this line: `declare var EletroPayPrinterService: any;` after the imports in `app.component.ts` (or any other file where you'll use the plugin) before actually using it. If you're using Ionic 1, you don't need to do this.
 
 As a final note, make sure you're accessing the plugin after the `platform.ready()` fires, just so you make sure that the plugin is ready for use.
 
@@ -45,7 +45,7 @@ We start the process of plugin building by creating the `plugin.xml` file:
 ```
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="cordova-plugin-eletropay-printer" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>AndroidToast</name>
+    <name>EletroPayPrinterService</name>
 
     <description>Android Toast Plugin</description>
     <license>Apache 2.0</license>
@@ -55,18 +55,18 @@ We start the process of plugin building by creating the `plugin.xml` file:
       <engine name="cordova" version=">=3.0.0" />
     </engines>
 
-    <js-module name="AndroidToast" src="www/AndroidToast.js">
-        <clobbers target="AndroidToast" />
+    <js-module name="EletroPayPrinterService" src="www/EletroPayPrinterService.js">
+        <clobbers target="EletroPayPrinterService" />
     </js-module>
 
     <platform name="android">
         <config-file target="config.xml" parent="/*">
-            <feature name="AndroidToast">
-                <param name="android-package" value="com.nikolabreznjak.AndroidToast" />
+            <feature name="EletroPayPrinterService">
+                <param name="android-package" value="com.nikolabreznjak.EletroPayPrinterService" />
             </feature>
         </config-file>
 
-        <source-file src="src/android/AndroidToast.java" target-dir="src/com/nikola-breznjak/android-toast" />
+        <source-file src="src/android/EletroPayPrinterService.java" target-dir="src/com/nikola-breznjak/android-toast" />
     </platform>
 </plugin>
 ```
@@ -76,19 +76,19 @@ In this file you basically define:
 + the platform this plugin supports (`<platform name="android">`)
 + where the source files of your plugin will be (`source-file` elements)
 + where is the JavaScript file that will be the bridge from Cordova to native code (`js-module` tag `src` property)
-+ what will be the plugin's name by which you'll reference it in the Cordova/Ionic code (`<clobbers target="AndroidToast" />`)
++ what will be the plugin's name by which you'll reference it in the Cordova/Ionic code (`<clobbers target="EletroPayPrinterService" />`)
 
-## www/AndroidToast.js
+## www/EletroPayPrinterService.js
 Next comes the so-called 'bridge' file that connects the native and JavaScript side. It is common to put this file in the `www` folder. The contents of this file is as follows:
 
 ```
 var exec = cordova.require('cordova/exec');
 
-var AndroidToast = function() {
-    console.log('AndroidToast instanced');
+var EletroPayPrinterService = function() {
+    console.log('EletroPayPrinterService instanced');
 };
 
-AndroidToast.prototype.show = function(msg, onSuccess, onError) {
+EletroPayPrinterService.prototype.show = function(msg, onSuccess, onError) {
     var errorCallback = function(obj) {
         onError(obj);
     };
@@ -97,17 +97,17 @@ AndroidToast.prototype.show = function(msg, onSuccess, onError) {
         onSuccess(obj);
     };
 
-    exec(successCallback, errorCallback, 'AndroidToast', 'show', [msg]);
+    exec(successCallback, errorCallback, 'EletroPayPrinterService', 'show', [msg]);
 };
 
 if (typeof module != 'undefined' && module.exports) {
-    module.exports = AndroidToast;
+    module.exports = EletroPayPrinterService;
 }
 ```
 
-We created the `AndroidToast` function, which in other programming languages would basically be a class, because we added the `show` function on its prototype. The `show` function, via Cordova's `exec` function, registers the `success` and `error` callbacks for the `AndroidToast` class and the `show` method on the native side that we'll show now shortly. Also, we pass in the `msg` variable as an array to the native `show` function.
+We created the `EletroPayPrinterService` function, which in other programming languages would basically be a class, because we added the `show` function on its prototype. The `show` function, via Cordova's `exec` function, registers the `success` and `error` callbacks for the `EletroPayPrinterService` class and the `show` method on the native side that we'll show now shortly. Also, we pass in the `msg` variable as an array to the native `show` function.
 
-## src/android/AndroidToast.java
+## src/android/EletroPayPrinterService.java
 The 'native' code is written in [Java](https://www.ibm.com/developerworks/java/tutorials/j-introtojava1/):
 
 ```
@@ -121,7 +121,7 @@ import org.json.JSONException;
 import android.content.Context;
 import android.widget.Toast;
 
-public class AndroidToast extends CordovaPlugin {
+public class EletroPayPrinterService extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ("show".equals(action)) {
