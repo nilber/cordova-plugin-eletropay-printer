@@ -1,4 +1,4 @@
-# Cordova EletroPay Printer Service plugin
+# Cordova EletroPay Printer Service plugin - BETA VERSION
 
 ## TL;DR
 This is a Cordova plugin for Android that printer POS eletropay.
