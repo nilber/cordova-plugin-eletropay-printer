@@ -12,7 +12,7 @@ If you're using Cordova:
 
 `cordova plugin add https://github.com/nilber/cordova-plugin-eletropay-printer.git`
 
-In the code, you would show the toast message like this:
+In the code, you would like this:
 
 ```
 constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
